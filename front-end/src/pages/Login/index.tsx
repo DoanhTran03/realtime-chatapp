@@ -28,7 +28,7 @@ const Login = () => {
                 <label htmlFor="">room number</label>
                 <input onChange={e => roomContext?.setRoom(e.target.value)} type="text" />
             </div>  
-            <button disabled={roomContext?.name == "" || roomContext?.room == ""} onClick={() => join_room()}>Join Room</button>
+            <button disabled={roomContext?.name == "" || roomContext?.room == "" || socketContext?.socket.id == undefined} onClick={() => join_room()}>Join Room</button>
         </form>
     </div>
   )
