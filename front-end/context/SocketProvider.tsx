@@ -19,6 +19,6 @@ const SocketProvider = ({children}: Props   ) => {
 }
 
 export const useSocketContext = () => {
-    useContext(Context)
+    return useContext(Context)
 }
 export default SocketProvider
