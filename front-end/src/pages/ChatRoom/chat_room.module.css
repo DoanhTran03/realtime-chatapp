@@ -14,10 +14,18 @@
     text-align: center;
     transform: translateY(-6rem);
 }
-.chat_container {
+.chat_body {
+    height: 50vh;
+    max-height: 50vh;
     font-size: 1.4rem;
     padding: 10px 10px;
     flex: 1;    
+    position: relative  ;
+    overflow-y: scroll  ;
+    overflow-x: hidden;
+}
+.chat_body::-webkit-scrollbar {
+    display: none;
 }
 .chat_input {
     background-color: #fff;

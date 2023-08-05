@@ -20,6 +20,7 @@ const ChatRoom = () => {
       };
       await socketContext?.socket.emit("send_message", data);
       setChatList((chatList: any) => [...chatList, data]);
+      messRef.current.value = '';
     }
   };
 
@@ -30,19 +31,24 @@ const ChatRoom = () => {
     });
   }, [socketContext?.socket]);
 
+  useEffect (() => {
+    const scrollDiv = document.getElementById("scroll_body");
+    if ( scrollDiv) scrollDiv.scrollTop = 10000000000000;
+  },[chatList])
+
   return (
     <div className={style.chat_room}>
       <h1 className={style.chat_heading}>{`Room: ${roomContext?.room}`}</h1>
-      <div className={style.chat_container}>
-        {chatList.map((data:any) => (
-          <div className={data.author === roomContext?.name ? `${style.message} ${style.message__me}` : `${style.message}`}>
-            <div className={style.message_content}>
-              {data.message}
+        <div id={"scroll_body"} className={style.chat_body}>
+          {chatList.map((data:any) => (
+            <div className={data.author === roomContext?.name ? `${style.message} ${style.message__me}` : `${style.message}`}>
+              <div className={style.message_content}>
+                {data.message}
+              </div>
+              <span className={`${style.message_meta}`}>{`${data.time} ${data.author}`}</span>
             </div>
-            <span className={`${style.message_meta}`}>{`${data.time} ${data.author}`}</span>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
       <div className={style.chat_input}>
         <input onKeyDown={(e) => e.key === "Enter" ? sendHandle() : ''} ref={messRef} type="text" placeholder="Type your message..." />
         <span onClick={() => sendHandle()}>
