@@ -8,7 +8,7 @@ interface ContextValueType {
 }
 const Context = createContext<ContextValueType | null>(null);
 const SocketProvider = ({children}: Props   ) => {
-    const socket = io("http://localhost:3000")
+    const socket = io("http://localhost:3001").connect();
   return (
     <Context.Provider value={{
         socket

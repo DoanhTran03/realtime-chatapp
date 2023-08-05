@@ -2,29 +2,34 @@ import { AiOutlineSend } from "react-icons/ai";
 import style from "./chat_room.module.css";
 import { useSocketContext } from "../../../context/SocketProvider";
 import { useRoomContext } from "../../../context/RoomProvider";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ChatRoom = () => {
   const socketContext = useSocketContext();
   const roomContext = useRoomContext();
   const messRef = useRef<HTMLInputElement>(null);
-
-  useEffect(()=>{
-    socketContext?.socket.on('receive_message', (data) => {
-      console.log(data);
-    })
-  },[socketContext?.socket])
-
-  const sendHandle = () => {
+  const [chatList, setChatList] = useState<any>([]);
+    
+  const sendHandle = async () => {
     if (messRef.current) {
     const data = {
       author: roomContext?.name,
       room: roomContext?.room,
       message: messRef.current.value
     }
-    socketContext?.socket.emit('send_message', data);
+    await socketContext?.socket.emit('send_message', data);
+    setChatList((chatList:any) => [...chatList,data]);
   }
-  }
+  }   
+  
+  useEffect(()=>{
+    socketContext?.socket.removeAllListeners("receive_message");
+    socketContext?.socket.on('receive_message', (data) => {
+      setChatList((chatList: any) => [...chatList , data]);
+    })
+  },[socketContext?.socket])
+
+  console.log(chatList);
   return (
     <div className={style.chat_room}>
       <h1 className={style.chat_heading}>Room 2023</h1>
