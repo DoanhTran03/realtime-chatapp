@@ -44,7 +44,7 @@ const ChatRoom = () => {
         ))}
       </div>
       <div className={style.chat_input}>
-        <input ref={messRef} type="text" placeholder="Type your message..." />
+        <input onKeyDown={(e) => e.key === "Enter" ? sendHandle() : ''} ref={messRef} type="text" placeholder="Type your message..." />
         <span onClick={() => sendHandle()}>
           <AiOutlineSend />
         </span>
