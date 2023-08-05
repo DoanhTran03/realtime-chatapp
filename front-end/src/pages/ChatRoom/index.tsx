@@ -16,6 +16,7 @@ const ChatRoom = () => {
         author: roomContext?.name,
         room: roomContext?.room,
         message: messRef.current.value,
+        time: `${new Date().getHours()}:${new Date().getMinutes()}`
       };
       await socketContext?.socket.emit("send_message", data);
       setChatList((chatList: any) => [...chatList, data]);
@@ -29,7 +30,6 @@ const ChatRoom = () => {
     });
   }, [socketContext?.socket]);
 
-  console.log(chatList);
   return (
     <div className={style.chat_room}>
       <h1 className={style.chat_heading}>{`Room: ${roomContext?.room}`}</h1>
@@ -39,7 +39,7 @@ const ChatRoom = () => {
             <div className={style.message_content}>
               {data.message}
             </div>
-            <span className={`${style.message_meta}`}>{`10:00 | ${data.author}`}</span>
+            <span className={`${style.message_meta}`}>{`${data.time} ${data.author}`}</span>
           </div>
         ))}
       </div>

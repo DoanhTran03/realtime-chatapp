@@ -49,9 +49,11 @@
     color: #242E4C;
 }
 .message_content {
+    word-break: break-all;
+    line-break: auto;
     letter-spacing: 1px;
     width: fit-content;
-    max-width: 40%;
+    max-width: 45%;
     border-radius: 5px;
     padding: 6px 8px;
     font-size: 1.3rem;
