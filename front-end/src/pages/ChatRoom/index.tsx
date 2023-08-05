@@ -33,7 +33,7 @@ const ChatRoom = () => {
 
   useEffect (() => {
     const scrollDiv = document.getElementById("scroll_body");
-    if ( scrollDiv) scrollDiv.scrollTop = 10000000000000;
+    if ( scrollDiv) scrollDiv.scrollTop = scrollDiv.scrollHeight;
   },[chatList])
 
   return (
